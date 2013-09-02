@@ -1,7 +1,9 @@
 
 require 'pry'
 
-@team_list = {}
+@team_list  = {}
+winner_list = []
+game_list   = []
 
 def identify_winner(hash)
   new_hash = hash.sort_by {|team, score| score}
@@ -11,9 +13,10 @@ end
 
 puts "Would you like to enter a game? (Y/N)"
 @answer = gets.chomp
+count = 0
 
 while true do
-
+ 
   if @answer =="Y" 
     puts "what was team 1's name?"
     print ">"
@@ -39,14 +42,24 @@ while true do
     two_score = gets.chomp
     @team_list[two_name] = (two_score)
 
-    print identify_winner(@team_list)
-    puts " is the victor!!!!"
+    winner_list << identify_winner(@team_list)
+    count = count + 1
+    game_list << count
+  
     puts "Would you like to enter another game? (Y/N)"
     @answer = gets.chomp
+     # binding.pry
+
+    
+
+  elsif @answer == "N"
+    winner_list.each_with_index {|team, index| print team, " is the victor of game ",  index.to_i + 1, " "}
+    
+    break
+
   else
     break
   end
-
 end
 
 
